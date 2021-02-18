@@ -4,7 +4,8 @@ const userRoute = require('./routes/user');
 const postRoute = require('./routes/post');
 const bodyParser = require("body-parser");
 const cors = require('cors');
-
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(cors());
 app.use((req,res,next) => {
     res.header('Access-Control-Allow-Origin','*');
@@ -19,8 +20,7 @@ app.use((req,res,next) => {
 
     next();
 });
-app.use(express.json());
-app.use(bodyParser.urlencoded({extended:false}));
+
 app.use('/user',userRoute);
 app.use('/post',postRoute);
 app.listen(process.env.PORT || 3001);
