@@ -58,7 +58,7 @@ router.delete("/:img",(req,res)=>{
     const image = req.params.img;
     connection.query("DELETE FROM posts WHERE image= ?",image,(err,results)=>{
         if(err) console.log(err);
-        res.send(results);
+        res.sendStatus(200);
 
     });
 });
