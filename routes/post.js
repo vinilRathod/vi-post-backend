@@ -5,14 +5,15 @@ router.post("/",(req,res)=>{
     const title = req.body.title;
     const image = req.body.image;
     const username = req.body.username;
-    connection.query("INSERT INTO posts(title,image,username) VALUES(?,?,?);",[title,image,username],(err,results)=>{
+    const price = req.body.price;
+    connection.query("INSERT INTO posts(title,image,username,price) VALUES(?,?,?,?);",[title,image,username,price],(err,results)=>{
         if(err) console.log(err);
         res.send(results);
     });
 });
 
 router.get("/",(req,res)=>{
-    connection.query("SELECT id,title,image,username,likes,DAY(created) AS day,MONTH(created) AS month,YEAR(created) AS year FROM posts",(err,results)=>{
+    connection.query("SELECT id,title,image,username,price,likes,DAY(created) AS day,MONTH(created) AS month,YEAR(created) AS year FROM posts",(err,results)=>{
         if(err) console.log(err);
         res.send(results);
     })
@@ -20,7 +21,7 @@ router.get("/",(req,res)=>{
 
 router.get("/byUser/:username",(req,res)=>{
     const username = req.params.username;
-    connection.query("SELECT id,title,image,username,likes,DAY(created) AS day,MONTH(created) AS month,YEAR(created) AS year FROM posts WHERE username= ?",username,(err,results)=>{
+    connection.query("SELECT id,title,image,username,price,likes,DAY(created) AS day,MONTH(created) AS month,YEAR(created) AS year FROM posts WHERE username= ?",username,(err,results)=>{
         if(err) console.log(err);
         res.send(results);
 

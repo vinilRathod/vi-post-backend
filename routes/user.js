@@ -7,7 +7,7 @@ router.post("/register",(req,res)=>{
     var password;
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
         if(err) console.log(err);
-        connection.query("INSERT INTO users(username,password) VALUES(?,?);",[req.body.username,hash],(err2,results)=>{
+        connection.query("INSERT INTO users(username,password,mail,mob) VALUES(?,?,?,?);",[req.body.username,hash,req.body.mail,req.body.mob],(err2,results)=>{
             if(err2) 
             {
                 res.json({msg:"Username doesn't exist !"});
@@ -46,4 +46,20 @@ router.get("/likes/:username",(req,res)=>{
 
     })
 });
+router.get("/:username",(req,res)=>{
+    const username = req.params.username;
+    connection.query("SELECT mob,mail FROM users WHERE username= ?",username,(err,results)=>{
+        if(err) console.log(err);
+        res.send(results);
+
+    })
+});
+router.delete("/:img",(req,res)=>{
+    const image = req.params.img;
+    connection.query("DELETE FROM posts WHERE image= ?",image,(err,results)=>{
+        if(err) console.log(err);
+        res.send(results);
+
+    })
+})
 module.exports = router;
