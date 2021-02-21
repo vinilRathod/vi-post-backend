@@ -44,7 +44,7 @@ router.get("/likes/:username",(req,res)=>{
         if(err) console.log(err);
         res.send(results);
 
-    })
+    });
 });
 router.get("/:username",(req,res)=>{
     const username = req.params.username;
@@ -52,7 +52,7 @@ router.get("/:username",(req,res)=>{
         if(err) console.log(err);
         res.send(results);
 
-    })
+    });
 });
 router.delete("/:img",(req,res)=>{
     const image = req.params.img;
@@ -60,6 +60,6 @@ router.delete("/:img",(req,res)=>{
         if(err) console.log(err);
         res.send(results);
 
-    })
-})
+    });
+});
 module.exports = router;
